@@ -112,12 +112,11 @@ func handleEvents(
 }
 
 func shutdown(
-	parent context.Context,
 	server *http.Server,
 	watcher *watcher.Watcher,
 ) {
 	ctx, cancel := context.WithTimeout(
-		parent, shutdownTimeout,
+		context.Background(), shutdownTimeout,
 	)
 
 	defer cancel()
@@ -174,5 +173,5 @@ func main() {
 
 	log.Println("shutdown signal received")
 
-	shutdown(ctx, httpServer, w)
+	shutdown(httpServer, w)
 }
